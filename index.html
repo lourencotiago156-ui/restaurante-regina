@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurante da Regina - Comida Caseira & Self-Service</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+    :root {
+      --bg-dark: #121214;
+      --card-bg: #1c1c21;
+      --accent-orange: #ff6b00;
+      --accent-green: #25d366;
+      --text-main: #ffffff;
+      --text-sub: #a0a0ab;
+      --border-color: #2a2a32;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+    body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+    /* Navbar Fixa */
+    nav { position: fixed; top: 0; left: 0; width: 100%; background: rgba(18, 18, 20, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-color); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.4rem; font-weight: 800; color: var(--accent-orange); display: flex; align-items: center; gap: 10px; }
+    .nav-links { display: flex; gap: 25px; list-style: none; }
+    .nav-links a { color: var(--text-sub); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+    .nav-links a:hover { color: var(--accent-orange); }
+
+    /* Hero / Capa */
+    .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 60px; background: linear-gradient(180deg, rgba(18,18,20,0.7) 0%, rgba(18,18,20,1) 100%), url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; }
+    .hero-content { max-width: 800px; }
+    .badge { display: inline-block; background: rgba(255, 107, 0, 0.15); color: var(--accent-orange); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; border: 1px solid rgba(255, 107, 0, 0.3); }
+    .hero h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(180deg, #ffffff 0%, #d4d4d8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.25rem; color: var(--text-sub); margin-bottom: 35px; }
+
+    /* Botões */
+    .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; padding: 16px 32px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); transition: 0.3s transform; }
+    .btn-primary:hover { transform: translateY(-3px); }
+    .btn-secondary { background: var(--card-bg); color: white; padding: 16px 32px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--border-color); transition: 0.3s; }
+
+    /* Seções */
+    section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-header h2 { font-size: 2.3rem; font-weight: 800; margin-bottom: 10px; color: #fff; }
+    .section-header p { color: var(--text-sub); font-size: 1.1rem; }
+
+    /* Grid do Cardápio */
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .menu-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); transition: 0.3s; }
+    .menu-card:hover { transform: translateY(-5px); border-color: var(--accent-orange); }
+    .menu-card img { width: 100%; height: 230px; object-fit: cover; }
+    .menu-card-body { padding: 25px; }
+    .tag { background: rgba(255, 107, 0, 0.2); color: var(--accent-orange); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .menu-card-body h3 { font-size: 1.35rem; margin: 12px 0 8px; color: #fff; }
+    .menu-card-body p { color: var(--text-sub); font-size: 0.95rem; margin-bottom: 20px; }
+    .menu-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 15px; }
+    .price { font-size: 1.1rem; font-weight: 800; color: var(--accent-orange); }
+
+    /* Horários & Informações */
+    .info-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .info-box { background: var(--card-bg); padding: 35px; border-radius: 20px; border: 1px solid var(--border-color); }
+    .info-box i { font-size: 2.3rem; color: var(--accent-orange); margin-bottom: 20px; }
+    .info-box h3 { font-size: 1.4rem; margin-bottom: 15px; color: #fff; }
+    .hours-list { list-style: none; }
+    .hours-list li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-sub); }
+
+    footer { background: #0b0b0d; border-top: 1px solid var(--border-color); padding: 35px 5%; text-align: center; color: var(--text-sub); font-size: 0.9rem; }
+
+    @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } .nav-links { display: none; } }
+  </style>
+</head>
+<body>
+
+  <!-- Menu de Navegação -->
+  <nav>
+    <div class="logo">
+      <i class="fa-solid fa-utensils"></i> RESTAURANTE DA REGINA
+    </div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#cardapio">Cardápio</a></li>
+      <li><a href="#horarios">Horários</a></li>
+      <li><a href="#localizacao">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- Banner Principal -->
+  <div class="hero" id="inicio">
+    <div class="hero-content">
+      <span class="badge">🍲 Comida Caseira • Tradição & Qualidade</span>
+      <h1>Restaurante da Regina</h1>
+      <p>O melhor Self-Service e marmitas caprichadas com aquele tempero caseiro inconfundível. Venha saborear ou peça a sua entrega!</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/5514998889323?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20pedir%20uma%20marmita." target="_blank" class="btn-primary">
+          <i class="fa-brands fa-whatsapp"></i> Pedir Marmita no WhatsApp
+        </a>
+        <a href="#cardapio" class="btn-secondary">Ver Pratos do Dia</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção do Cardápio -->
+  <section id="cardapio">
+    <div class="section-header">
+      <h2>Pratos & Especialidades</h2>
+      <p>Conheça os pratos mais pedidos no nosso buffet caseiro</p>
+    </div>
+
+    <div class="menu-grid">
+      <!-- Prato 1: Parmegiana -->
+      <div class="menu-card">
+        <!-- FOTO DO FRANGO À PARMEGIANA (Caso queira trocar, mude o src="") -->
+        <img src="https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?auto=format&fit=crop&w=800&q=80" alt="Frango à Parmegiana">
+        <div class="menu-card-body">
+          <span class="tag">O Queridinho</span>
+          <h3>Frango à Parmegiana</h3>
+          <p>Filé de frango empanado, coberto com bastante molho de tomate caseiro e queijo derretido, acompanhado de arroz e fritas.</p>
+          <div class="menu-footer">
+            <span class="price">Prato Executivo</span>
+            <i class="fa-solid fa-fire" style="color: var(--accent-orange)"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prato 2: Buffet Self-Service -->
+      <div class="menu-card">
+        <!-- FOTO DO BUFFET SELF-SERVICE -->
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Buffet Self-Service">
+        <div class="menu-card-body">
+          <span class="tag">Variedade Diária</span>
+          <h3>Buffet Self-Service Completo</h3>
+          <p>Buffet farto com variedade em saladas, pratos quentes, assados na hora e sobremesas tradicionais.</p>
+          <div class="menu-footer">
+            <span class="price">Comer no Local</span>
+            <i class="fa-solid fa-plate-wheat" style="color: var(--accent-orange)"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prato 3: Marmitex -->
+      <div class="menu-card">
+        <!-- FOTO DA MARMITA / COMIDA CASEIRA -->
+        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80" alt="Marmitas Caseiras">
+        <div class="menu-card-body">
+          <span class="tag">Entrega Rápida</span>
+          <h3>Marmitas Executivas Caprichadas</h3>
+          <p>Marmitas bem servidas com arroz, feijão, opções de carnes do dia e acompanhamentos fresquinhos.</p>
+          <div class="menu-footer">
+            <span class="price">Marmitex</span>
+            <i class="fa-solid fa-box" style="color: var(--accent-orange)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Horários de Funcionamento -->
+  <section id="horarios" style="background: rgba(28, 28, 33, 0.5); max-width: 100%; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div class="section-header">
+        <h2>Horário de Atendimento</h2>
+        <p>Venha nos visitar no almoço ou faça seu pedido por telefone/WhatsApp</p>
+      </div>
+
+      <div class="info-container">
+        <div class="info-box">
+          <i class="fa-regular fa-clock"></i>
+          <h3>Horários do Almoço</h3>
+          <ul class="hours-list">
+            <li><span>Buffet Presencial:</span> <strong>11:00 às 14:30</strong></li>
+            <li><span>Entregas de Marmitas:</span> <strong>11:00 às 14:00</strong></li>
+            <li><span>Segunda a Sábado:</span> <strong>Aberto Normal</strong></li>
+            <li><span>Domingo:</span> <strong>Fechado</strong></li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <i class="fa-solid fa-utensils"></i>
+          <h3>Diferenciais da Regina</h3>
+          <ul class="hours-list">
+            <li><span>Tempero Caseiro:</span> <strong>Feito no dia</strong></li>
+            <li><span>Ambiente Familiar:</span> <strong>Espaço aconchegante</strong></li>
+            <li><span>Entregas:</span> <strong>Marmitas quentinhas</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de Contato -->
+  <section id="localizacao">
+    <div class="section-header">
+      <h2>Faça seu Pedido</h2>
+      <p>Clique abaixo para pedir pelo WhatsApp ou tirar dúvidas sobre o cardápio do dia</p>
+    </div>
+
+    <div class="info-container" style="justify-content: center;">
+      <div class="info-box" style="text-align: center; max-width: 500px; margin: 0 auto;">
+        <i class="fa-solid fa-phone" style="font-size: 3rem;"></i>
+        <h3 style="margin-top: 10px;">Atendimento Rápido</h3>
+        <p style="color: var(--text-sub); margin-bottom: 25px;">
+          Peça sua marmita direto com a equipe da Regina!
+        </p>
+        <a href="https://wa.me/5514998889323?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido." target="_blank" class="btn-primary" style="justify-content: center; width: 100%;">
+          <i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Restaurante da Regina • Tradição e Qualidade em Comida Caseira.</p>
+  </footer>
+
+</body>
+</html>
